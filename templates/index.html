@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wine Predictor</title>
+    <style>
+        body {
+            background-image: url("/static/download.jpg");
+            background-size: cover;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust the opacity as needed */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            width: 50%;
+            max-width: 600px;
+        }
+        /* Additional styles for form elements can be added here */
+    </style>
+</head>
+<body>
+    <h2>Wine Predictor</h2>
+    <form action="/predict" method="post">
+        {% for feature_name, (min_val, max_val) in feature_ranges.items() %}
+        <label for="{{ feature_name }}">{{ feature_name.capitalize().replace('_', ' ') }} ({{ min_val }} - {{ max_val }})</label><br>
+        <input type="number" id="{{ feature_name }}" name="{{ feature_name }}" step="0.01" min="{{ min_val }}" max="{{ max_val }}"><br>
+        {% endfor %}
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
