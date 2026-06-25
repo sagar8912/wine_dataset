@@ -1,0 +1,48 @@
+Objective
+Reviewed the codebase based on the previous meeting discussion to understand how user onboarding, role management, and team membership are implemented in the TOW application. NJ
+Files Reviewed
+1. Dashboard (
+DashboardPage.tsx
+)
+* Reviewed the main dashboard page.
+* The page loads the application sidebar and welcome section.
+* Displays separate Personal and Organization dashboards.
+* Mainly responsible for frontend navigation and dashboard rendering.
+2. User Roles API (
+app/api/user-roles/route.ts
+)
+* Reviewed the API responsible for system role management.
+* GET method retrieves user roles by combining data from user_profiles and team_members.
+* POST method updates the user’s system_role.
+* Confirms that system roles and team roles are managed separately.
+3. Team Members API (
+app/api/team-members/route.ts
+)
+* Reviewed the API responsible for team membership management.
+* GET retrieves members of a team or memberships of a user.
+* POST uses the add_team_member Supabase RPC to add or update team membership.
+* DELETE removes users from a team after validating permissions and checking ownership dependencies.
+* This API directly supports the SWAT onboarding requirement discussed in the meeting.
+4. Admin User Management (
+admin/users/page.tsx
+)
+* Reviewed the User Management screen.
+* The page retrieves users, roles, and primary team information through backend APIs.
+* Supports creating users, editing user details, assigning system roles, selecting the primary team, and resetting passwords.
+* The implementation matches the manual onboarding workflow demonstrated during the meeting.
+Code Understanding
+* User information is maintained separately from team membership.
+* System roles are stored in user_profiles.
+* Team-specific roles are managed through the team_members table.
+* A user can belong to multiple teams and have different roles in each team.
+* The current SWAT onboarding requirement can be implemented through the Team Members API by assigning users to the appropriate Commercial Lines or Personal Lines SWAT team.
+Mapping with Meeting Discussion
+* Manual user onboarding is already supported through the Admin User Management page.
+* Team-based access is implemented through the Team Members API.
+* Separate system roles and team roles match the business workflow explained during the meeting.
+* Existing authorization logic is already implemented, so the current activity only requires assigning users to the correct team with the appropriate role.
+Next Steps
+* Continue reviewing the remaining APIs related to Teams and Authentication.
+* Understand the Microsoft/Supabase integration.
+* Analyze how future synchronization between UKG, Microsoft Entra, and the TOW application can be incorporated.
+* Continue identifying architecture gaps and potential improvements before starting development.
